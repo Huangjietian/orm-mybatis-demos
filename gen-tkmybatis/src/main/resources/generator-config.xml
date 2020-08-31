@@ -7,15 +7,11 @@
     <classPathEntry location="D:\respository_mvn\mysql\mysql-connector-java\8.0.21\mysql-connector-java-8.0.21.jar" />
 
     <context id="MysqlDb" targetRuntime="MyBatis3">
-        <commentGenerator>
-            <!-- 是否去除自动生成的英文注释 true：是 ： false:否 -->
-            <property name="suppressAllComments" value="true"/>
-            <!-- 格式化java代码-->
-            <property name="DefaultJavaFormatter" value="true"/>
-            <!-- 格式化XML代码-->
-            <property name="DefaultXmlFormatter" value="true"/>
 
-        </commentGenerator>
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="cn.kerninventory.mybatis.gen.tkmybatis.gen.MyMapper"/>
+        </plugin>
+
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/mybatis-gen-demo?serverTimezone=UTC"
                         userId="root"
@@ -27,22 +23,22 @@
         </javaTypeResolver>
 
         <!--
-        使用java运行main方法生成时 targetProject需要添加项目根目录gen-origin，使用maven插件时则不需要
+        使用java运行main方法生成时 targetProject需要添加项目根目录gen-tkmybatis，使用maven插件时则不需要
         example：
-        java -> targetProject= "gen-origin/src/main/java"
+        java -> targetProject= "gen-tkmybatis/src/main/java"
         maven-plugin -> targetProject="src/main/java"
         造成这种差异的原因是寻址的不同
         -->
-        <javaModelGenerator targetPackage="cn.kerninventory.mybatis.gen.origin.pojo" targetProject="gen-origin/src/main/java">
+        <javaModelGenerator targetPackage="cn.kerninventory.mybatis.gen.tkmybatis.pojo" targetProject="gen-tkmybatis/src/main/java">
             <property name="enableSubPackages" value="false" />
             <property name="trimStrings" value="false" />
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mapper"  targetProject="gen-origin/src/main/resources">
+        <sqlMapGenerator targetPackage="mapper"  targetProject="gen-tkmybatis/src/main/resources">
             <property name="enableSubPackages" value="false" />
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.kerninventory.mybatis.gen.origin.mapper"  targetProject="gen-origin/src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.kerninventory.mybatis.gen.tkmybatis.mapper"  targetProject="gen-tkmybatis/src/main/java">
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
 
